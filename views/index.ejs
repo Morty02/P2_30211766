@@ -6,6 +6,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://kit.fontawesome.com/f36ee5e341.js" crossorigin="anonymous"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RCSGRW3563"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RCSGRW3563');
+</script>
   
   </head>
 
@@ -45,7 +54,7 @@
         <p class="title-secc">FORMACION</p>
       <div class="form1">
         <p class="P1">2009 - 2015 </p>
-        <p class="P2">U.E.E Simon Rodriguez.</p><br>
+        <p class="P2">U.E.E Simon Rodriguez</p><br>
         <p class="P3">Educacion primaria.</p>
       </div>
       <div class="form2">
@@ -71,7 +80,9 @@
       <label for="bar3">Lexico:</label>
       <progress id="bar3" max="100" value="40"> 70% </progress>
       </div>
-        <p class="title">IDIOMAS</p>
+      </div>
+      <div class="title">
+        <p class="title-en">IDIOMAS</p>
         <div class="bar5">
           <label for="bar5">Ingles:</label>
           <progress id="bar5" max="100" value="60"> 70% </progress>
@@ -108,7 +119,11 @@
                     <span class="obligatorio">*</span>
                   </label>                     
                                     <textarea name="message" class="texto_mensaje" id="message" required="obligatorio" placeholder="Deja aquí tu comentario..."></textarea> 
-                                </p>                    
+                                </p>  
+                  <div class="mb-1">
+                  <div class="g-recaptcha" data-sitekey="6Ld31CMgAAAAABkLMssY7pIpj7JpSU1Jmd3azKd9" data-callback="verifyCaptcha"></div> 
+                </div> 
+                <div id="g-recaptcha-error"></div>              
               
                 <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
 
