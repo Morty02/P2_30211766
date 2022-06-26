@@ -5,8 +5,12 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('aplicacion:server');
+var debug = require('debug')('express:server');
 var http = require('http');
+var bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 /**
  * Get port from environment and store in Express.
