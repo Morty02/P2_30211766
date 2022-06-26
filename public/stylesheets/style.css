@@ -375,6 +375,13 @@ label{
 
 }
 
+.login-b { 
+  height: 30px; 
+  width: 200px;   
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
 
 button{
   height: 45px; 

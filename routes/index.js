@@ -4,7 +4,9 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const data = path.join(__dirname, "data", "db.db");
 const nodemailer = require('nodemailer');
+const XMLHttpRequest = require('xhr2');
 const fetch = require('node-fetch');
+require('dotenv').config()
 const database = new sqlite3.Database(data, err => {
   if (err) {
     return console.error(err.message);
@@ -36,7 +38,9 @@ router.get('/contacts', (req, res, next) => {
   });
 });
 
-
+router.get('/login', (req, res, next) => {
+  res.render("login.ejs", { data: rows });
+});
 router.post('/', (req, res) => {
   let date = new Date();
   let hor = date.getHours();
@@ -49,14 +53,14 @@ router.post('/', (req, res) => {
   let time = hor + ':' + min + ':' + sec + ' ' + form;
   let T_Date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
   const response_key = req.body["g-recaptcha-response"];
-  const secret_key = "6Ld31CMgAAAAADt2dw7uV14D8x0pc9t4kxpKZvaZ";
+  const secret_key = process.env.SECRET_KEY;
   const resp = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
 
   fetch(resp, {
     method: "post",
   })
     .then((response) => response.json())
-    .then ((google_response) => {
+    .then((google_response) => {
 
       if (google_response.success == true) {
 
@@ -77,15 +81,15 @@ router.post('/', (req, res) => {
                 <li>Ip:  ${ip} </li>
                 <li>Fecha: ${T_Date} </li>
                 <li>Hora: ${time} </li>
-
+                <li>Ubicacion: ${clientCountry} </li>
             </ul>
             <p>${message}</p>
           `;
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: 'cp06685@gmail.com',
-            pass: 'zgdh kqvy qkcg rmvt'
+            user: process.env.EMAIL,
+            pass: process.env.PASS
           },
           tls: {
             rejectUnauthorized: false
@@ -113,14 +117,15 @@ router.post('/', (req, res) => {
         console.log("Porfa valida el capcha");
       };
     })
+  
     .catch((e) => console.log((e)))
-    
+
 });
 
-  router.get('/', (req, res, next) => {
-    res.render('index.ejs', { data: {} });
-  });
+router.get('/', (req, res, next) => {
+  res.render('index.ejs', { data: {} });
+});
 
 
 
-  module.exports = router;
+module.exports = router;
